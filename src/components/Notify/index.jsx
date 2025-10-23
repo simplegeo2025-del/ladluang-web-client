@@ -11,6 +11,69 @@ const mockData = [
     { id: 'r5', title: 'สายสื่อสารรกรุงรัง', type: 'สายสื่อสารรกรุงรัง', status: 'ปฏิเสธ', lat: 13.7487, lng: 100.5033, date: '2025-10-15', photo: 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?q=80&w=640&auto=format&fit=crop', note: 'สายต่ำและยุ่งเหยิง', community: true }
 ]
 
+const newsData = [
+    {
+        id: 'n1',
+        title: 'การประชุมสภาเทศบาล สมัยสามัญ ครั้งที่ 3',
+        category: 'ข่าวประชาสัมพันธ์',
+        categoryColor: 'bg-green-500',
+        date: '16 ตุลาคม 2568',
+        views: 245,
+        image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=640&auto=format&fit=crop',
+        excerpt: 'เทศบาลจัดการประชุมสภาเทศบาล สมัยสามัญ ครั้งที่ 3 ประจำปี 2568 เพื่อพิจารณาระเบียบวาระการประชุมสำคัญเกี่ยวกับ...'
+    },
+    {
+        id: 'n2',
+        title: 'โครงการส่งเสริมการออกกำลังกายเพื่อสุขภาพ',
+        category: 'กิจกรรม',
+        categoryColor: 'bg-blue-500',
+        date: '15 ตุลาคม 2568',
+        views: 187,
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=640&auto=format&fit=crop',
+        excerpt: 'เทศบาลจัดโครงการส่งเสริมการออกกำลังกายเพื่อสุขภาพ "สะดวกทุกวัน ใส่ใจสุขภาพ" ทุกวันจันทร์ เวลา 16.00-18.00 น. ณ สนามกีฬาเทศบาล...'
+    },
+    {
+        id: 'n3',
+        title: 'ประกาศผลผู้ชนะการเสนอราคา',
+        category: 'จัดซื้อจัดจ้าง',
+        categoryColor: 'bg-yellow-500',
+        date: '14 ตุลาคม 2568',
+        views: 134,
+        image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=640&auto=format&fit=crop',
+        excerpt: 'ประกาศผลผู้ชนะการเสนอราคา เรื่อง จ้างซ่อมแซมถนนภายในเขตเทศบาล บริเวณชุมชนบ้านใหม่ สายหลัก...'
+    },
+    {
+        id: 'n4',
+        title: 'ประกาศเทศบาลให้ใช้ข้อบัญญัติงบประมาณ',
+        category: 'ประกาศสำคัญ',
+        categoryColor: 'bg-red-500',
+        date: '13 ตุลาคม 2568',
+        views: 320,
+        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=640&auto=format&fit=crop',
+        excerpt: 'เทศบาลจัดทำงบประมาณรายจ่ายประจำปีงบประมาณ พ.ศ. 2568 เพื่อใช้ในการบริหารจัดการและพัฒนาท้องถิ่น...'
+    },
+    {
+        id: 'n5',
+        title: 'โครงการปลูกต้นไม้เพื่อสิ่งแวดล้อม',
+        category: 'ข่าวประชาสัมพันธ์',
+        categoryColor: 'bg-green-500',
+        date: '12 ตุลาคม 2568',
+        views: 178,
+        image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=640&auto=format&fit=crop',
+        excerpt: 'เทศบาลจัดโครงการปลูกต้นไม้เพื่อสิ่งแวดล้อม เนื่องในโอกาสวันสิ่งแวดล้อมโลก 12 สิงหาคม 2568...'
+    },
+    {
+        id: 'n6',
+        title: 'การแข่งขันกีฬาต้านยาเสพติด ประจำปี 2568',
+        category: 'กิจกรรม',
+        categoryColor: 'bg-blue-500',
+        date: '11 ตุลาคม 2568',
+        views: 205,
+        image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=640&auto=format&fit=crop',
+        excerpt: 'เทศบาลจัดการแข่งขันกีฬาต้านยาเสพติด ประจำปี 2568 ระหว่างวันที่ 10-12 ตุลาคม 2568 ณ สนามกีฬาเทศบาล...'
+    }
+]
+
 const statusColor = {
     'รอรับเรื่อง': { tw: 'bg-amber-100 text-amber-700', stroke: '#f59e0b' },
     'กำลังดำเนินการ': { tw: 'bg-blue-100 text-blue-700', stroke: '#3b82f6' },
@@ -46,6 +109,8 @@ const Notify = () => {
         remain: 0,
         remainAll: 0
     })
+
+    const [newsCategoryFilter, setNewsCategoryFilter] = useState('')
 
     useEffect(() => {
         const filtered = mockData.filter(item => {
@@ -182,44 +247,6 @@ const Notify = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
-                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-primary-50 text-primary-700 inline-flex items-center justify-center">📊</div>
-                        <div>
-                            <div className="text-xs text-gray-500">รวม</div>
-                            <div className="text-2xl font-semibold">{kpiData.total}</div>
-                        </div>
-                    </div>
-                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-700 inline-flex items-center justify-center">📝</div>
-                        <div>
-                            <div className="text-xs text-gray-500">รอรับเรื่อง</div>
-                            <div className="text-2xl font-semibold">{kpiData.wait}</div>
-                        </div>
-                    </div>
-                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 inline-flex items-center justify-center">⚙️</div>
-                        <div>
-                            <div className="text-xs text-gray-500">กำลังดำเนินการ</div>
-                            <div className="text-2xl font-semibold">{kpiData.doing}</div>
-                        </div>
-                    </div>
-                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 inline-flex items-center justify-center">✅</div>
-                        <div>
-                            <div className="text-xs text-gray-500">เสร็จสิ้น</div>
-                            <div className="text-2xl font-semibold">{kpiData.done}</div>
-                        </div>
-                    </div>
-                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-slate-50 text-slate-700 inline-flex items-center justify-center">⏳</div>
-                        <div>
-                            <div className="text-xs text-gray-500">คงเหลือ</div>
-                            <div className="text-2xl font-semibold">{kpiData.remain}</div>
-                        </div>
-                    </div>
-                </div>
-
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
                     <section className="lg:col-span-8">
                         <div className="rounded-xl overflow-hidden ring-1 ring-gray-200 bg-white h-[70vh]">
@@ -271,6 +298,119 @@ const Notify = () => {
                         </div>
                     </aside>
                 </div>
+
+                <section className="mt-8">
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-2xl font-bold text-gray-900">ข่าวสารล่าสุด</h2>
+                    </div>
+
+                    <div className="mb-4 flex gap-2 overflow-x-auto pb-2">
+                        <button
+                            onClick={() => setNewsCategoryFilter('')}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                                newsCategoryFilter === ''
+                                    ? 'bg-green-500 text-white'
+                                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                            }`}
+                        >
+                            ทั้งหมด
+                        </button>
+                        <button
+                            onClick={() => setNewsCategoryFilter('ข่าวประชาสัมพันธ์')}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                                newsCategoryFilter === 'ข่าวประชาสัมพันธ์'
+                                    ? 'bg-green-500 text-white'
+                                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                            }`}
+                        >
+                            ประชาสัมพันธ์
+                        </button>
+                        <button
+                            onClick={() => setNewsCategoryFilter('กิจกรรม')}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                                newsCategoryFilter === 'กิจกรรม'
+                                    ? 'bg-green-500 text-white'
+                                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                            }`}
+                        >
+                            กิจกรรม
+                        </button>
+                        <button
+                            onClick={() => setNewsCategoryFilter('จัดซื้อจัดจ้าง')}
+                            className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+                                newsCategoryFilter === 'จัดซื้อจัดจ้าง'
+                                    ? 'bg-green-500 text-white'
+                                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                            }`}
+                        >
+                            จัดซื้อจัดจ้าง
+                        </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {newsData
+                            .filter(news => !newsCategoryFilter || news.category === newsCategoryFilter)
+                            .map((news) => (
+                                <article
+                                    key={news.id}
+                                    className="bg-white rounded-xl shadow-sm ring-1 ring-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group"
+                                >
+                                    <div className="relative h-48 overflow-hidden">
+                                        <img
+                                            src={news.image}
+                                            alt={news.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                        />
+                                        <span className={`absolute top-3 left-3 ${news.categoryColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
+                                            {news.category}
+                                        </span>
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="text-base font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                                            {news.title}
+                                        </h3>
+                                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                                            {news.excerpt}
+                                        </p>
+                                        <div className="flex items-center justify-between text-xs text-gray-500">
+                                            <div className="flex items-center gap-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                </svg>
+                                                {news.date}
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                                {news.views}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            ))}
+                    </div>
+
+                    <div className="mt-6 flex justify-center">
+                        <nav className="flex items-center gap-2">
+                            <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <button className="px-4 py-2 rounded-lg bg-green-500 text-white font-medium">1</button>
+                            <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">2</button>
+                            <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">3</button>
+                            <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">4</button>
+                            <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </nav>
+                    </div>
+                </section>
             </div>
         </main>
     )
