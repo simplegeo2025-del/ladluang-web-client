@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Icon } from '@iconify/react'
 import 'leaflet/dist/leaflet.css'
 
 import Map from './Map'
@@ -252,38 +253,48 @@ const Notify = () => {
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
                     <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
-                        <div className="w-10 h-10 rounded-lg bg-primary-50 text-primary-700 inline-flex items-center justify-center text-xl">📊</div>
+                        <div className="w-10 h-10 rounded-lg bg-primary-50 text-primary-700 inline-flex items-center justify-center">
+                            <Icon icon="mdi:chart-bar" className="text-2xl" />
+                        </div>
                         <div>
                             <div className="text-xs text-gray-500">รวมทั้งหมด</div>
                             <div className="text-2xl font-semibold text-gray-900">{kpiData.total}</div>
                         </div>
                     </div>
                     <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
-                        <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-700 inline-flex items-center justify-center text-xl">📝</div>
+                        <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-700 inline-flex items-center justify-center">
+                            <Icon icon="mdi:clipboard-text" className="text-2xl" />
+                        </div>
                         <div>
                             <div className="text-xs text-gray-500">รอรับเรื่อง</div>
                             <div className="text-2xl font-semibold text-amber-700">{kpiData.wait}</div>
                         </div>
                     </div>
                     <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
-                        <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 inline-flex items-center justify-center text-xl">⚙️</div>
+                        <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 inline-flex items-center justify-center">
+                            <Icon icon="mdi:cog" className="text-2xl" />
+                        </div>
                         <div>
                             <div className="text-xs text-gray-500">กำลังดำเนินการ</div>
                             <div className="text-2xl font-semibold text-blue-700">{kpiData.doing}</div>
                         </div>
                     </div>
                     <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
-                        <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 inline-flex items-center justify-center text-xl">✅</div>
+                        <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 inline-flex items-center justify-center">
+                            <Icon icon="mdi:check-circle" className="text-2xl" />
+                        </div>
                         <div>
                             <div className="text-xs text-gray-500">เสร็จสิ้น</div>
                             <div className="text-2xl font-semibold text-emerald-700">{kpiData.done}</div>
                         </div>
                     </div>
                     <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
-                        <div className="w-10 h-10 rounded-lg bg-slate-50 text-slate-700 inline-flex items-center justify-center text-xl">⏳</div>
+                        <div className="w-10 h-10 rounded-lg bg-rose-50 text-rose-700 inline-flex items-center justify-center">
+                            <Icon icon="mdi:close-circle" className="text-2xl" />
+                        </div>
                         <div>
-                            <div className="text-xs text-gray-500">คงเหลือ</div>
-                            <div className="text-2xl font-semibold text-slate-700">{kpiData.remain}</div>
+                            <div className="text-xs text-gray-500">ปฏิเสธ</div>
+                            <div className="text-2xl font-semibold text-rose-700">{kpiData.remain}</div>
                         </div>
                     </div>
                 </div>
