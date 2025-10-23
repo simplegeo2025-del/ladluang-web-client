@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
   const [registerType, setRegisterType] = useState("email");
 
@@ -99,12 +101,12 @@ const Login = () => {
                   </div>
 
                   <div className="text-sm">
-                    <a
-                      href="#"
+                    <button
+                      onClick={() => navigate("/forgot-password")}
                       className="font-medium text-primary-600 hover:text-primary-500"
                     >
                       ลืมรหัสผ่าน?
-                    </a>
+                    </button>
                   </div>
                 </div>
 
