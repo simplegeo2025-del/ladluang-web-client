@@ -7,6 +7,7 @@ import Notify from './components/Notify'
 import TestMap from './components/test-map'
 import Login from './components/Login/Login'
 import ForgotPassword from './components/Login/ForgotPassword'
+import NewsDetail from './components/News/NewsDetail'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Notify />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/test-map" element={<TestMap />} />
         </Routes>
         <Footer />

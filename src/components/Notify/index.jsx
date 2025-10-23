@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import 'leaflet/dist/leaflet.css'
 
 import Map from './Map'
@@ -111,6 +112,8 @@ const Notify = () => {
     })
 
     const [newsCategoryFilter, setNewsCategoryFilter] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const filtered = mockData.filter(item => {
@@ -247,6 +250,44 @@ const Notify = () => {
                     </div>
                 </div>
 
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-4">
+                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
+                        <div className="w-10 h-10 rounded-lg bg-primary-50 text-primary-700 inline-flex items-center justify-center text-xl">📊</div>
+                        <div>
+                            <div className="text-xs text-gray-500">รวมทั้งหมด</div>
+                            <div className="text-2xl font-semibold text-gray-900">{kpiData.total}</div>
+                        </div>
+                    </div>
+                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
+                        <div className="w-10 h-10 rounded-lg bg-amber-50 text-amber-700 inline-flex items-center justify-center text-xl">📝</div>
+                        <div>
+                            <div className="text-xs text-gray-500">รอรับเรื่อง</div>
+                            <div className="text-2xl font-semibold text-amber-700">{kpiData.wait}</div>
+                        </div>
+                    </div>
+                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
+                        <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-700 inline-flex items-center justify-center text-xl">⚙️</div>
+                        <div>
+                            <div className="text-xs text-gray-500">กำลังดำเนินการ</div>
+                            <div className="text-2xl font-semibold text-blue-700">{kpiData.doing}</div>
+                        </div>
+                    </div>
+                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
+                        <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 inline-flex items-center justify-center text-xl">✅</div>
+                        <div>
+                            <div className="text-xs text-gray-500">เสร็จสิ้น</div>
+                            <div className="text-2xl font-semibold text-emerald-700">{kpiData.done}</div>
+                        </div>
+                    </div>
+                    <div className="rounded-xl ring-1 ring-gray-200 bg-white p-4 flex items-center gap-3 hover:shadow-md transition-shadow">
+                        <div className="w-10 h-10 rounded-lg bg-slate-50 text-slate-700 inline-flex items-center justify-center text-xl">⏳</div>
+                        <div>
+                            <div className="text-xs text-gray-500">คงเหลือ</div>
+                            <div className="text-2xl font-semibold text-slate-700">{kpiData.remain}</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
                     <section className="lg:col-span-8">
                         <div className="rounded-xl overflow-hidden ring-1 ring-gray-200 bg-white h-[70vh]">
@@ -354,6 +395,7 @@ const Notify = () => {
                                 <article
                                     key={news.id}
                                     className="bg-white rounded-xl shadow-sm ring-1 ring-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer group"
+                                    onClick={() => navigate(`/news/${news.id}`)}
                                 >
                                     <div className="relative h-48 overflow-hidden">
                                         <img
@@ -399,7 +441,7 @@ const Notify = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
-                            <button className="px-4 py-2 rounded-lg bg-green-500 text-white font-medium">1</button>
+                            <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium">1</button>
                             <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">2</button>
                             <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">3</button>
                             <button className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">4</button>
