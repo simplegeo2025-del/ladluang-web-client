@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/navbar'
 import Footer from './components/Footer/footer'
 import Notify from './components/Notify'
 import TestMap from './components/test-map'
+import Login from './components/Login/Login'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/notify" element={<Notify />} />
           <Route path="/" element={<Notify />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/test-map" element={<TestMap />} />
         </Routes>
         <Footer />

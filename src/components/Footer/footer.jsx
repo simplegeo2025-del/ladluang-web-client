@@ -5,7 +5,7 @@ const logo = '/logo-ladluang.png';
 const Footer = () => {
   const thaiYear = new Date().getFullYear() + 543;
   return (
-    <footer id="ติดต่อ" className="mt-12 border-t border-gray-200 bg-white">
+    <footer id="ติดต่อ" className="border-t border-gray-200 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
