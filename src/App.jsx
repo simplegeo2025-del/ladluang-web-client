@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar/navbar'
+import Footer from './components/Footer/footer'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
           <div id="detail" className="text-sm text-gray-600">เลือกงานจากรายการเพื่อดูรายละเอียด</div>
         </section>
       </main>
+      <Footer />
       <div id="toast" className="hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-xl shadow-lg" />
     </div>
 
