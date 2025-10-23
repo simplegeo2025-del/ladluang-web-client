@@ -59,7 +59,7 @@ const Map = ({ selectedItem, filteredData, statusColor, typeEmoji, onMarkerClick
       center={center}
       zoom={12}
       className="w-full"
-      style={{ height: '70vh', width: '100%' }}
+      style={{ height: '70vh', width: '100%', zIndex: 1 }}
       scrollWheelZoom={false}
     >
       <MapController selectedItem={selectedItem} points={filteredData} />
