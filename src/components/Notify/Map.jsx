@@ -1,36 +1,62 @@
-import { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
-const MapController = ({ selectedItem, filteredData }) => {
+const defaultIcon = L.icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+})
+L.Marker.prototype.options.icon = defaultIcon
+
+function MapController({ selectedItem, points }) {
   const map = useMap()
+
+  const bounds = useMemo(() => {
+    if (!points?.length) return null
+    return L.latLngBounds(points.map(p => [p.lat, p.lng]))
+  }, [points])
 
   useEffect(() => {
     if (selectedItem) {
       map.setView([selectedItem.lat, selectedItem.lng], 14, { animate: true })
-    } else if (filteredData.length > 0) {
-      const bounds = filteredData.reduce((acc, item) => {
-        acc.push([item.lat, item.lng])
-        return acc
-      }, [])
+      return
+    }
+    if (bounds) {
       map.fitBounds(bounds, { padding: [50, 50] })
     }
-  }, [selectedItem, filteredData, map])
+  }, [selectedItem, bounds, map])
 
   return null
 }
 
 const Map = ({ selectedItem, filteredData, statusColor, typeEmoji, onMarkerClick }) => {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) return null
+
+  const center = [13.7563, 100.5018]
+
   return (
     <MapContainer
-      key="map-container"
-      center={[13.7563, 100.5018]}
+      center={center}
       zoom={12}
-      className="w-full h-[70vh]"
+      className="w-full"
+      style={{ height: '70vh', width: '100%' }}
       scrollWheelZoom={false}
     >
-      {/* <MapController selectedItem={selectedItem} filteredData={filteredData} /> */}
+      <MapController selectedItem={selectedItem} points={filteredData} />
       <TileLayer
-        attribution='&copy; OpenStreetMap'
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {filteredData.map((item) => (

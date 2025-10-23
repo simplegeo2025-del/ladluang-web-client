@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo, Suspense, lazy } from 'react'
+import { useState, useEffect } from 'react'
 import 'leaflet/dist/leaflet.css'
 
-const Map = lazy(() => import('./Map'))
+import Map from './Map'
 
 const mockData = [
   { id:'r1', title:'ไฟถนนดับยาวตลอดซอย', type:'ไฟฟ้าสาธารณะ', status:'รอรับเรื่อง', lat:13.7563, lng:100.5018, date:'2025-10-19', photo:'https://images.unsplash.com/photo-1447014421976-7fec21d26d86?q=80&w=640&auto=format&fit=crop', note:'ไฟฟ้าแสงสว่างดับ', community:true },
@@ -227,16 +227,14 @@ const Notify = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
           <section className="lg:col-span-8">
-            <div className="rounded-xl overflow-hidden ring-1 ring-gray-200 bg-white">
-              <Suspense fallback={<div className="w-full h-[70vh] flex items-center justify-center">Loading map...</div>}>
-                {/* <Map
-                  selectedItem={selectedItem}
-                  filteredData={filteredData}
-                  statusColor={statusColor}
-                  typeEmoji={typeEmoji}
-                  onMarkerClick={handleMarkerClick}
-                /> */}
-              </Suspense>
+            <div className="rounded-xl overflow-hidden ring-1 ring-gray-200 bg-white h-[70vh]">
+              <Map
+                selectedItem={selectedItem}
+                filteredData={filteredData}
+                statusColor={statusColor}
+                typeEmoji={typeEmoji}
+                onMarkerClick={handleMarkerClick}
+              />
             </div>
           </section>
           <aside className="lg:col-span-4">
