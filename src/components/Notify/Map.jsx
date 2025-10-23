@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -23,6 +23,7 @@ function MapController({ selectedItem, points }) {
   }, [points])
 
   useEffect(() => {
+    map.invalidateSize()
     if (selectedItem) {
       map.setView([selectedItem.lat, selectedItem.lng], 14, { animate: true })
       return
@@ -37,10 +38,17 @@ function MapController({ selectedItem, points }) {
 
 const Map = ({ selectedItem, filteredData, statusColor, typeEmoji, onMarkerClick }) => {
   const [mounted, setMounted] = useState(false)
+  const markerRefs = useRef({})
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (mounted && selectedItem && markerRefs.current[selectedItem.id]) {
+      markerRefs.current[selectedItem.id].openPopup()
+    }
+  }, [mounted, selectedItem])
 
   if (!mounted) return null
 
@@ -62,6 +70,7 @@ const Map = ({ selectedItem, filteredData, statusColor, typeEmoji, onMarkerClick
       {filteredData.map((item) => (
         <CircleMarker
           key={item.id}
+          ref={(ref) => { if (ref) markerRefs.current[item.id] = ref }}
           center={[item.lat, item.lng]}
           radius={selectedItem?.id === item.id ? 12 : 9}
           pathOptions={{

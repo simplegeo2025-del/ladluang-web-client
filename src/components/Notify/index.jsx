@@ -244,7 +244,7 @@ const Notify = () => {
                 <div className="text-xs text-gray-500">{filteredData.length} รายการ</div>
               </div>
               <div className="overflow-y-auto px-2 pb-2 flex-1">
-                <ul className="space-y-2">
+                <ul className="space-y-2 mt-2">
                   {filteredData.map((item) => (
                     <li
                       key={item.id}
