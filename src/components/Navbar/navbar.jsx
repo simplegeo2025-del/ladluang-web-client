@@ -29,7 +29,7 @@ const Navbar = () => {
     }, [mobileMenuOpen]);
 
     return (
-        <header className={`${scrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-white/95 backdrop-blur-sm"} border-b border-gray-200 sticky top-0 z-50 transition-all duration-300`}>
+        <header className={`${scrolled ? "bg-white/95 backdrop-blur-sm shadow-sm" : "bg-white/95 backdrop-blur-sm"} border-b border-gray-200 sticky top-0 z-50 transition-all duration-300`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <a href="#" className="flex items-center gap-3 group">
@@ -37,7 +37,7 @@ const Navbar = () => {
                             <img src={logo} alt="logo" className="w-10 h-10 object-contain" />
                         </span>
                         <div>
-                            <div className="text-base font-semibold leading-5 group-hover:text-primary-700 transition-colors duration-300">ศูนย์แจ้งเรื่องร้องเรียน</div>
+                            <div className="text-base font-semibold leading-5 group-hover:text-primary-700 transition-colors duration-300">ศูนย์รับเรื่องร้องเรียน</div>
                             <div className="text-xs text-gray-500 -mt-0.5">เทศบาลเมืองลัดหลวง จังหวัดสมุทรปราการ</div>
                         </div>
                     </a>
