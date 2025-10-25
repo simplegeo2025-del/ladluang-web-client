@@ -111,7 +111,7 @@ const Login = () => {
 
               {error && (
                 <div
-                  className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-sm"
+                  className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-sm mb-2"
                   role="alert"
                 >
                   <div className="flex">
