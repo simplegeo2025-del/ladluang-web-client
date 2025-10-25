@@ -12,6 +12,8 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import NewsDetailPage from './pages/NewsDetailPage'
 import ReportListPage from './pages/ReportListPage'
 import UserProfilePage from './pages/UserProfilePage'
+import AuthGoogleCallback from './pages/AuthGoogleCallback'
+import PublicRoute from './components/common/PublicRoute'
 
 const queryClient = new QueryClient()
 
@@ -24,12 +26,13 @@ function App() {
           <Routes>
             <Route path="/notify" element={<NotifyPage />} />
             <Route path="/" element={<NotifyPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/news/:id" element={<NewsDetailPage />} />
             <Route path="/test-map" element={<TestMap />} />
             <Route path="/reports" element={<PrivateRoute><ReportListPage /></PrivateRoute>} />
             <Route path="/profile" element={<PrivateRoute><UserProfilePage /></PrivateRoute>} />
+            <Route path="/auth/citizens/google/callback" element={<AuthGoogleCallback />} />
           </Routes>
           <Footer />
           <div id="toast" className="hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-xl shadow-lg" />
