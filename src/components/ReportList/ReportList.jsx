@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Layout from './Layout'
 
 const ReportList = () => {
   const [activeTab, setActiveTab] = useState('all')
@@ -106,104 +107,106 @@ const ReportList = () => {
   }
 
   return (
-    <main className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white border rounded-lg p-4 sm:p-6">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div className="w-full md:w-auto grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm text-gray-700">ค้นหาเลขที่เรื่อง/คำสำคัญ</label>
-              <input 
-                type="text" 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" 
-                placeholder="เช่น ISS-2025-00001, ไฟฟ้าดับ" 
-              />
+    <Layout>
+      <main className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="bg-white border rounded-lg p-4 sm:p-6">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div className="w-full md:w-auto grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm text-gray-700">ค้นหาเลขที่เรื่อง/คำสำคัญ</label>
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" 
+                  placeholder="เช่น ISS-2025-00001, ไฟฟ้าดับ" 
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-700">ช่วงวันที่</label>
+                <input 
+                  type="date" 
+                  value={dateFilter}
+                  onChange={(e) => setDateFilter(e.target.value)}
+                  className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" 
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-sm text-gray-700">ช่วงวันที่</label>
-              <input 
-                type="date" 
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value)}
-                className="mt-1 w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" 
-              />
+            <div className="w-full md:w-auto grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <button onClick={() => setActiveTab('all')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'all' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>ทั้งหมด</button>
+              <button onClick={() => setActiveTab('new')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'new' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>รอรับเรื่อง</button>
+              <button onClick={() => setActiveTab('wip')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'wip' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>กำลังดำเนินการ</button>
+              <button onClick={() => setActiveTab('done')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'done' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>เสร็จสิ้น</button>
+              <button onClick={() => setActiveTab('reject')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'reject' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>ถูกปฏิเสธ</button>
             </div>
           </div>
-          <div className="w-full md:w-auto grid grid-cols-2 sm:grid-cols-3 gap-2">
-            <button onClick={() => setActiveTab('all')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'all' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>ทั้งหมด</button>
-            <button onClick={() => setActiveTab('new')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'new' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>รอรับเรื่อง</button>
-            <button onClick={() => setActiveTab('wip')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'wip' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>กำลังดำเนินการ</button>
-            <button onClick={() => setActiveTab('done')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'done' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>เสร็จสิ้น</button>
-            <button onClick={() => setActiveTab('reject')} className={`px-3 py-2 text-sm rounded-md ${activeTab === 'reject' ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-700'}`}>ถูกปฏิเสธ</button>
-          </div>
-        </div>
 
-        <div className="mt-4 overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">เลขที่เรื่อง</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ประเภท</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">วันที่แจ้ง</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">สถานะ</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ความคืบหน้า</th>
-                <th className="px-4 py-3"/>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {paginatedReports.map(report => (
-                <tr key={report.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm text-gray-700">{report.id}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{report.type}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{report.date}</td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-flex items-center px-2 py-1 text-xs rounded-full ${statusColors[report.status].bg} ${statusColors[report.status].text}`}>
-                      {statusColors[report.status].label}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="w-40 bg-gray-100 rounded-full h-2">
-                      <div className={`${statusColors[report.status].progress} h-2 rounded-full`} style={{ width: `${report.progress}%` }}></div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <a href="#" className="text-sm text-green-700 hover:underline">ดูรายละเอียด</a>
-                  </td>
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">เลขที่เรื่อง</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ประเภท</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">วันที่แจ้ง</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">สถานะ</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ความคืบหน้า</th>
+                  <th className="px-4 py-3"/>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {paginatedReports.map(report => (
+                  <tr key={report.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 text-sm text-gray-700">{report.id}</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">{report.type}</td>
+                    <td className="px-4 py-3 text-sm text-gray-500">{report.date}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-flex items-center px-2 py-1 text-xs rounded-full ${statusColors[report.status].bg} ${statusColors[report.status].text}`}>
+                        {statusColors[report.status].label}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="w-40 bg-gray-100 rounded-full h-2">
+                        <div className={`${statusColors[report.status].progress} h-2 rounded-full`} style={{ width: `${report.progress}%` }}></div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <a href="#" className="text-sm text-green-700 hover:underline">ดูรายละเอียด</a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm text-gray-500">
-            แสดง {startIndex + 1}-{Math.min(startIndex + itemsPerPage, filteredReports.length)} จาก {filteredReports.length} รายการ
-          </div>
-          <div className="inline-flex rounded-md shadow-sm isolate">
-            <button 
-              onClick={handlePrevPage}
-              disabled={currentPage === 1}
-              className={`px-3 py-2 text-sm border rounded-l-md ${
-                currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white hover:bg-gray-50'
-              }`}
-            >
-              ก่อนหน้า
-            </button>
-            {renderPaginationButtons()}
-            <button 
-              onClick={handleNextPage}
-              disabled={currentPage === totalPages}
-              className={`px-3 py-2 text-sm border rounded-r-md ${
-                currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white hover:bg-gray-50'
-              }`}
-            >
-              ถัดไป
-            </button>
+          <div className="mt-4 flex items-center justify-between">
+            <div className="text-sm text-gray-500">
+              แสดง {startIndex + 1}-{Math.min(startIndex + itemsPerPage, filteredReports.length)} จาก {filteredReports.length} รายการ
+            </div>
+            <div className="inline-flex rounded-md shadow-sm isolate">
+              <button 
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                className={`px-3 py-2 text-sm border rounded-l-md ${
+                  currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white hover:bg-gray-50'
+                }`}
+              >
+                ก่อนหน้า
+              </button>
+              {renderPaginationButtons()}
+              <button 
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-2 text-sm border rounded-r-md ${
+                  currentPage === totalPages ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white hover:bg-gray-50'
+                }`}
+              >
+                ถัดไป
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </Layout>
   )
 }
 

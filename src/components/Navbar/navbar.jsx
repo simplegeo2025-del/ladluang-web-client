@@ -9,7 +9,6 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const navigate = useNavigate();
     const user = useUserStore(state => state.user);
-    console.log("🚀 ~ Navbar ~ user:", user)
     const clearUser = useUserStore(state => state.clearUser);
 
     useEffect(() => {
