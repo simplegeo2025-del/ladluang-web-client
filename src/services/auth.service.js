@@ -20,6 +20,6 @@ export const loginService = async (identifier, password) => {
 
 // me
 export const meService = async () => {
-    const response = await axiosInstance.get(`/api/auth/me`);
+    const response = await axiosInstance.get(`/api/auth/citizens/me`);
     return response.data;
 };

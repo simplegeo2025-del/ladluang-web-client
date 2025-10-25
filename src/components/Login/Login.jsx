@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import PasswordInput from "../common/PasswordInput";
 import { setToken } from "../../utils/localStorage";
 import { loginService } from "../../services/auth.service";
+import useUserStore from "../../store/user.store";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Login = () => {
   const [registerType, setRegisterType] = useState("email");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const fetchUser = useUserStore(state => state.fetchUser);
 
   const {
     control,
@@ -21,7 +23,8 @@ const Login = () => {
   } = useForm({
     defaultValues: {
       identifier: "",
-      password: "",
+      email: "teers4@gmail.com",
+      password: "Teera1123345",
     },
   });
 
@@ -29,10 +32,10 @@ const Login = () => {
     try {
       setIsLoading(true);
       setError("");
-      const response = await loginService(data.identifier, data.password);
-      const { accessToken } = response;
+      const { accessToken } = await loginService(data.identifier, data.password);
       setToken(accessToken);
-      navigate("/");
+      await fetchUser();
+      navigate("/reports");
     } catch (err) {
       console.error(err);
       setError(
