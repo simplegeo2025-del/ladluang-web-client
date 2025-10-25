@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import NewsDetailPage from './pages/NewsDetailPage'
 import ReportListPage from './pages/ReportListPage'
+import UserProfilePage from './pages/UserProfilePage'
 
 const queryClient = new QueryClient()
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/news/:id" element={<NewsDetailPage />} />
             <Route path="/test-map" element={<TestMap />} />
             <Route path="/reports" element={<PrivateRoute><ReportListPage /></PrivateRoute>} />
+            <Route path="/profile" element={<PrivateRoute><UserProfilePage /></PrivateRoute>} />
           </Routes>
           <Footer />
           <div id="toast" className="hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-xl shadow-lg" />

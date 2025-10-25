@@ -76,6 +76,7 @@ const Navbar = () => {
                                     <div className="absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-lg border border-gray-200 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
                                         <div className="px-4 py-2 text-sm text-gray-500">{user.email}</div>
                                         <hr className="my-1" />
+                                        <button onClick={() => navigate('/profile')} className="w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-50">โปรไฟล์</button>
                                         <button onClick={handleLogout} className="w-full px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-50">ออกจากระบบ</button>
                                     </div>
                                 </div>
