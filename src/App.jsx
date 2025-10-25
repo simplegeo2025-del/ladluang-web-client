@@ -8,6 +8,7 @@ import TestMap from './components/test-map'
 import Login from './components/Login/Login'
 import ForgotPassword from './components/Login/ForgotPassword'
 import NewsDetail from './components/News/NewsDetail'
+import ReportList from './components/ReportList/ReportList'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/test-map" element={<TestMap />} />
+          <Route path="/reports" element={<ReportList />} />
         </Routes>
         <Footer />
         <div id="toast" className="hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded-xl shadow-lg" />

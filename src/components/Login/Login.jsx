@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { Icon } from "@iconify/react";
 import PasswordInput from "../common/PasswordInput";
-import { loginService } from "../../services/auth/login";
 import { setToken } from "../../utils/localStorage";
+import { loginService } from "../../services/auth.service";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,6 +34,7 @@ const Login = () => {
       setToken(accessToken);
       navigate("/");
     } catch (err) {
+      console.error(err);
       setError(
         err?.response?.data?.message || "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"
       );
