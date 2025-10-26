@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { Icon } from '@iconify/react'
 import { registerRequestOtpService, registerVerifyOtpService } from '../../services/auth.service'
+import { setToken } from '../../utils/localStorage'
+import useUserStore from '../../store/user.store'
 
 const OTPVerification = () => {
   const navigate = useNavigate()
@@ -15,6 +17,8 @@ const OTPVerification = () => {
   const [refCode, setRefCode] = useState('')
   const [tempOtp, setTempOtp] = useState('')
   const [error, setError] = useState('')
+  const { setUser } = useUserStore()
+
 
   const requestOtpMutation = useMutation({
     mutationFn: (data) => registerRequestOtpService(data),
@@ -32,12 +36,17 @@ const OTPVerification = () => {
 
   const verifyOtpMutation = useMutation({
     mutationFn: (data) => registerVerifyOtpService(data),
-    onSuccess: () => {
-      navigate('/')
+    onSuccess: (data) => {
+      setToken(data.accessToken);
+      setUser(data.user);
+      navigate('../', { replace: true })
     },
     onError: (error) => {
+      console.log("🚀 ~ OTPVerification ~ error:", error)
       setOtp(['', '', '', '', '', ''])
       setError(error.response?.data?.message || 'รหัส OTP ไม่ถูกต้อง')
+      const firstInput = document.querySelector('input[name=otp-0]')
+      firstInput?.focus()
     }
   })
 
@@ -82,7 +91,7 @@ const OTPVerification = () => {
     }
 
     if (newOtp.every(digit => digit !== '')) {
-      handleVerifyOTP()
+      handleVerifyOTP(newOtp)
     }
   }
 
@@ -90,6 +99,10 @@ const OTPVerification = () => {
     if (e.key === 'Backspace' && !otp[index] && index > 0) {
       const prevInput = document.querySelector(`input[name=otp-${index - 1}]`)
       prevInput?.focus()
+    } else if (e.key === 'Backspace' && otp[index]) {
+      const newOtp = [...otp]
+      newOtp[index] = ''
+      setOtp(newOtp)
     }
   }
 
@@ -107,7 +120,7 @@ const OTPVerification = () => {
     setOtp(newOtp)
     
     if (newOtp.every(digit => digit !== '') && newOtp.join('').length === 6) {
-      handleVerifyOTP()
+      handleVerifyOTP(newOtp)
     }
   }
 
@@ -117,9 +130,9 @@ const OTPVerification = () => {
     }
   }
 
-  const handleVerifyOTP = () => {
-    const otpCode = otp.join('')
-    if (otpCode.length === 6) {
+  const handleVerifyOTP = (currentOtp = otp) => {
+    const otpCode = (Array.isArray(currentOtp) ? currentOtp.join('') : String(currentOtp))
+    if (otpCode.length === 6 && !verifyOtpMutation.isPending) {
       verifyOtpMutation.mutate({
         userId,
         phone: phoneNumber,

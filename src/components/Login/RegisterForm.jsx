@@ -14,7 +14,7 @@ export const RegisterForm = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm();
+    } = useForm({ mode: "onBlur" });
 
     const password = watch("password");
     const phoneNumber = watch("phone");
