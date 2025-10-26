@@ -14,6 +14,8 @@ import ReportListPage from './pages/ReportListPage'
 import UserProfilePage from './pages/UserProfilePage'
 import AuthGoogleCallback from './pages/AuthGoogleCallback'
 import PublicRoute from './components/common/PublicRoute'
+import EmailVerificationPage from './pages/EmailVerificationPage'
+import OTPVerificationPage from './pages/OTPVerificationPage'
 
 const queryClient = new QueryClient()
 
@@ -28,6 +30,8 @@ function App() {
             <Route path="/" element={<NotifyPage />} />
             <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/verify-email" element={<EmailVerificationPage />} />
+            <Route path="/verify-otp" element={<OTPVerificationPage />} />
             <Route path="/news/:id" element={<NewsDetailPage />} />
             <Route path="/test-map" element={<TestMap />} />
             <Route path="/reports" element={<PrivateRoute><ReportListPage /></PrivateRoute>} />

@@ -20,10 +20,10 @@ export const loginService = async (identifier, password) => {
 
 export const registerMobileService = async (data) => {
     const payload = {
-        mobile: data.identifier,
+        phone: data.phone,
         password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName
+        firstName: data.firstname,
+        lastName: data.lastname
     };
     const response = await axiosInstance.post(`/auth/citizens/mobile/register`, payload);
     return response.data;
@@ -31,10 +31,10 @@ export const registerMobileService = async (data) => {
 
 export const registerEmailService = async (data) => {
     const payload = {
-        email: data.identifier,
+        email: data.email,
         password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName
+        firstName: data.firstname,
+        lastName: data.lastname
     };
     const response = await axiosInstance.post(`/auth/citizens/email/register`, payload);
     return response.data;
@@ -56,5 +56,25 @@ export const googleExchangeService = async (code) => {
 
 export const meService = async () => {
     const response = await axiosInstance.get(`/auth/citizens/me`);
+    return response.data;
+};
+
+export const registerRequestOtpService = async ({ phone, userId }) => {
+    const payload = {
+        phone,
+        userId
+    };
+    const response = await axiosInstance.post(`/auth/citizens/mobile/request-otp`, payload);
+    return response.data;
+};
+
+export const registerVerifyOtpService = async ({ userId, phone, otpCode, refCode }) => {
+    const payload = {
+        userId,
+        phone,
+        otpCode,
+        refCode
+    };
+    const response = await axiosInstance.post(`/auth/citizens/mobile/verify-otp`, payload);
     return response.data;
 };
