@@ -109,3 +109,12 @@ export const verifyOtpForResetService = async ({ phone, refCode, otpCode }) => {
     const response = await axiosInstance.post(`/auth/citizens/mobile/verify-otp-for-reset`, payload);
     return response.data;
 };
+
+export const resetPasswordService = async ({ token, newPassword }) => {
+    const payload = {
+        token,
+        newPassword
+    };
+    const response = await axiosInstance.post(`/auth/citizens/email/reset-password`, payload);
+    return response.data;
+};

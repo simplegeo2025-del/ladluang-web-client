@@ -37,7 +37,6 @@ export const LoginForm = () => {
       );
     },
   });
-  console.log("🚀 ~ LoginForm ~ loginMutation:", loginMutation)
 
   const onSubmit = (data) => {
     loginMutation.mutate(data);
