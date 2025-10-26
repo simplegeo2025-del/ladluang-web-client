@@ -9,9 +9,22 @@ export const forgetPasswordService = async (identifier) => {
     return response.data;
 }
 
+export const forgotPasswordEmailService = async (email) => {
+    const payload = { email };
+    const response = await axiosInstance.post(`/auth/citizens/email/forgot-password`, payload);
+    return response.data;
+};
+
+export const forgotPasswordMobileService = async (phone) => {
+    const payload = { phone };
+    const response = await axiosInstance.post(`/auth/citizens/mobile/forgot-password`, payload);
+    return response.data;
+};
+
 export const loginService = async (identifier, password) => {
     const isMobile = /^[0-9]{10}$/.test(identifier);
     const endpoint = isMobile ? 'mobile' : 'email';
+    console.log("🚀 ~ loginService ~ identifier:", identifier)
     const payload = isMobile ? { mobile: identifier, password } : { email: identifier, password };
     
     const response = await axiosInstance.post(`/auth/citizens/${endpoint}/login`, payload);
@@ -84,5 +97,15 @@ export const registerVerifyOtpService = async ({ userId, phone, otpCode, refCode
         refCode
     };
     const response = await axiosInstance.post(`/auth/citizens/mobile/verify-otp`, payload);
+    return response.data;
+};
+
+export const verifyOtpForResetService = async ({ phone, refCode, otpCode }) => {
+    const payload = {
+        phone,
+        refCode,
+        otpCode
+    };
+    const response = await axiosInstance.post(`/auth/citizens/mobile/verify-otp-for-reset`, payload);
     return response.data;
 };
