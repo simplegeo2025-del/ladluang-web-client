@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import NotifyPage from './pages/NotifyPage'
 import LoginPage from './pages/LoginPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import NewsDetailPage from './pages/NewsDetailPage'
 import ReportListPage from './pages/ReportListPage'
 import UserProfilePage from './pages/UserProfilePage'
@@ -30,6 +31,7 @@ function App() {
             <Route path="/" element={<NotifyPage />} />
             <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/verify-email" element={<EmailVerificationPage />} />
             <Route path="/verify-otp" element={<OTPVerificationPage />} />
             <Route path="/news/:id" element={<NewsDetailPage />} />
