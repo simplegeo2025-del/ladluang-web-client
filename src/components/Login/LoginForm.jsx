@@ -4,11 +4,15 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import PasswordInput from "../common/PasswordInput";
-import { registerEmailService, registerMobileService } from "../../services/auth.service";
+import { loginService, registerEmailService, registerMobileService } from "../../services/auth.service";
+import { setToken } from "../../utils/localStorage";
+import useUserStore from "../../store/user.store";
 
 export const LoginForm = () => {
   const [loginType, setLoginType] = useState("email");
   const navigate = useNavigate();
+  const fetchUser = useUserStore((state) => state.fetchUser);
+  const [error, setError] = useState("");
   const {
     control,
     handleSubmit,
@@ -16,14 +20,24 @@ export const LoginForm = () => {
   } = useForm();
 
   const loginMutation = useMutation({
-    mutationFn: (data) =>
-      loginType === "email"
-        ? registerEmailService(data)
-        : registerMobileService(data),
-    onSuccess: () => {
-      navigate("/");
+    mutationFn: (data) => loginService(data.identifier, data.password),
+    onSuccess: async (data) => {
+      try {
+        setToken(data.accessToken);
+        await fetchUser();
+        navigate("/reports");
+      } catch (error) {
+        setError(error?.response?.data?.message || "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+      }
+    },
+    onError: (error) => {
+      console.log("🚀 ~ LoginForm ~ error:", error)
+      setError(
+        error?.response?.data?.message || "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"
+      );
     },
   });
+  console.log("🚀 ~ LoginForm ~ loginMutation:", loginMutation)
 
   const onSubmit = (data) => {
     loginMutation.mutate(data);
@@ -61,14 +75,14 @@ export const LoginForm = () => {
         </button>
       </div>
 
-      {loginMutation.error && (
+      {error && (
         <div
           className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-sm mb-2"
           role="alert"
         >
           <div className="flex">
             <Icon icon="mdi:alert-circle" className="h-5 w-5 mr-2" />
-            <span>{loginMutation.error.message}</span>
+            <span>{error}</span>
           </div>
         </div>
       )}
@@ -199,10 +213,10 @@ export const LoginForm = () => {
         <div>
           <button
             type="submit"
-            disabled={loginMutation.isLoading}
+            disabled={loginMutation.isPending}
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loginMutation.isLoading ? (
+            {loginMutation.isPending ? (
               <div className="flex items-center">
                 <Icon
                   icon="mdi:loading"
