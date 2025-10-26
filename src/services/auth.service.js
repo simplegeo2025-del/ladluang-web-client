@@ -49,6 +49,14 @@ export const registerService = async (data) => {
     }
 };
 
+export const verifyEmailService = async (token) => {
+    const params = {
+        token
+    };
+    const response = await axiosInstance.get(`/auth/citizens/email/verify`, { params });
+    return response.data;
+};
+
 export const googleExchangeService = async (code) => {
     const response = await axiosInstance.get(`/auth/citizens/google/callback?code=${code}`);
     return response.data;

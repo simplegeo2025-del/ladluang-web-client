@@ -26,9 +26,8 @@ export const RegisterForm = () => {
                 ? registerEmailService(data)
                 : registerMobileService(data),
         onSuccess: (data) => {
-          console.log("🚀 ~ RegisterForm ~ data:", data)
           if (isRegisterTypeEmail) {
-            navigate("/verify-email");
+            navigate("/verify-email", { state: { verificationLink: data.verificationLink } });
           } else {
             const userId = data.user.id
             navigate("/verify-otp", { state: { phoneNumber: phoneNumber, userId: userId } });
